@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.body-connection {
+    background-image: url("../../../public/img/image-connection.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgb(48, 48, 58);
+    height: 100vh;
+    font-family: "poppins";
+    //margin: -8px;
+}
+
+.connection-form {
+    position: relative;
+    margin-top: 5%;
+}
+
+.form-container-connection {
+    margin-top: 10%;
+    //border: solid 2px purple;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+}
+
+.img-birds {
+    position: absolute;
+    top: -26%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ul-connection {
+    //border: solid 2px green;
+    position: absolute;
+    top: -11.39%;
+    //left: 48.8%;
+    padding: 0 0px;
+    margin: 0 0 0 0px;
+    text-decoration: none;
+    list-style: none;
+    width: 300px;
+}
+
+// @media screen and (max-width: 1200px) {
+//     .ul-connection {
+//         left: 48.4%;
+//     }
+// }
+// @media screen and (max-width: 900px) {
+//     .ul-connection {
+//         left: 47.9%;
+//     }
+// }
+@media screen and (max-width: 700px) {
+    .connection-form {
+        position: relative;
+        margin-top: 10%;
+    }
+}
+// @media screen and (max-width: 600px) {
+//     .ul-connection {
+//         left: 46.7%;
+//     }
+// }
+
+.li-connection {
+    display: inline-table;
+    border: solid 2px rgba(37, 34, 34, 0.527);
+    //margin: 2rem;
+    text-align: center;
+    //padding: 5px;
+    border-radius: 3px 3px 0px 0px;
+    background-color: rgba(32, 29, 29, 0.623);
+    color: rgb(255, 255, 255);
+    width: 146px;
+    height: 13px;
+    //margin-right: 4px;
+}
+
+.li-connection:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(61, 118, 153);
+}
+
+.li-connection-activ {
+    height: 13px;
+    width: 146px;
+    display: inline-table;
+    border: solid 2px rgba(37, 34, 34, 0.527);
+    //margin: 2rem;
+    text-align: center;
+    //padding: 5px;
+    border-radius: 3px 3px 0px 0px;
+    background-color: rgba(31, 122, 226, 0.719);
+    color: rgb(255, 255, 255);
+    //margin-right: 4px;
+}
+
+.success_register {
+    position: absolute;
+    top: 100;
+    color: rgb(55, 158, 82);
+    text-shadow: 
+        -1px -1px 0 #000000c6,
+        1px -1px 0 #000000c6,
+        -1px 1px 0 #000000c6,
+        1px 1px 0 #000000c6;
+}
