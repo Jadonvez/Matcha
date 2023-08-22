@@ -14,11 +14,11 @@ const createToken = (id) => {
     });
 }
 
-const destroyToken = (id) => {
-    return jwt.sign({id}, process.env.TOKEN_SECRET, {
-        expiresIn: '1'
-    });
-}
+// const destroyToken = (id) => {
+//     return jwt.sign({id}, process.env.TOKEN_SECRET, {
+//         expiresIn: '1'
+//     });
+// }
 
 // const signIn = async (req, res) => {
 //     const { mail, password } = req.body;
@@ -55,17 +55,32 @@ const signIn = async (req, res) => {
             res.status(401).send("Le mail n'existe pas.");
         }
         else if (req.body.password && results.rows[0].password)
-            if (!bcrypt.compareSync(req.body.password, results.rows[0].password))
+            if (!bcrypt.compareSync(req.body.password, results.rows[0].password)){
                 res.status(401).send("Mot de passe incorrect.");
+                //throw Error("mot de passe invalide");
+            }
         else{
-            const accessToken = createToken(results.rows[0].id);
-            console.log('accesToken ====> signIn de auth.controller');
-            console.log(accessToken);
-            res.cookie('access-token', accessToken)
+            const accessToken = createToken(results.rows[0].uid);
+            // console.log(results.rows[0].id)
+            // console.log(results.rows[0].login)
+            // console.log('accesToken ====> signIn de auth.controller');
+            // console.log(accessToken);
+            // console.log(mail);
+            res.cookie("access-token", accessToken, { 
+                expires: new Date(Date.now() + 86400 * 10000),
+                httpOnly: true,
+                secure: false,
+                //sameSite: "Lax",
+                //signed: true,
+             }
+            )
+            .status(200)
+            //res.header("Access-Control-Allow-Origin", "*");
+            //res.redirect("http://127.0.0.1:3001");
+            res.send(req.cookies);
             //  res.send({
             //      accessToken,
             //  });
-            res.redirect("http://localhost:3001/");
         }
         } catch(error) {
             console.error(error);
@@ -122,16 +137,19 @@ const register = (req, res) => {
     else {
         if (!err.login || err.login === null) res.status(401).json({ error: "login" });
         else if (!err.mail) res.status(401).json({ error: "mail" });
-        else if (!err.password) res.status(401).json({ error: "password" });
+        else if (!err.password) res.status(401).json({ error: "password invalide" });
         else if (!err.dob) res.status(401).json({ error: "dob" });
     }
 }//)};
 
 const logOut = (req, res) => {
-    const stopToken = destroyToken();
-        res.send({
-            stopToken,
-        });
+    //const stopToken = destroyToken();
+    //    res.send({
+    //        stopToken,
+    //    });
+
+    res.cookie('access-token', '', { maxAge: 1 });
+    res.redirect('/');
 }
 
 module.exports = {

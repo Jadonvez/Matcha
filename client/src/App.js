@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { getUser } from './actions/user.actions';
-//import Navbar from './components/navbar_unlog';
+// import { getLikers } from './actions/liker.actions';
 
 const App = () => {
   const navigate = useNavigate();

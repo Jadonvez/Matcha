@@ -8,6 +8,7 @@ export const UPDATE_FIRSTNAME = "UPDATE_FIRSTNAME";
 export const UPDATE_MAIL = "UPDATE_MAIL";
 export const UPDATE_GENDER = "UPDATE_GENDER";
 export const UPDATE_ORIENTATION = "UPDATE_ORIENTATION";
+export const PUSH_LIKE = "PUSH_LIKE";
 
 export const getUser = (uid) => {
     return (dispatch) => {
@@ -114,6 +115,20 @@ export const updateOrientation = (userId, orientation) => {
         })
             .then((res) => {
                 dispatch({ type: UPDATE_ORIENTATION, payload:orientation })
+            })
+            .catch((err) => console.log(err))
+    }
+}
+
+export const pushLike = (likerUid, likedUid) => {
+    return (dispatch) => {
+        return axios({
+            method: "post",
+            url: `http://localhost:5000/api/user/like`,
+            data: { likerUid, likedUid }
+        })
+            .then((res) => {
+                dispatch({ type: PUSH_LIKE })
             })
             .catch((err) => console.log(err))
     }

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const controller = require('../controllers/user.controller');
 const authcontroller = require('../controllers/auth.controller');
 const uploadController = require('../controllers/upload.controller');
+const matchaController = require('../controllers/matcha.controller');
 //const email = require("../mail");
 const check_mail = require('../middleware/check_mail');
 const check_login = require('../middleware/check_login');
@@ -31,9 +32,20 @@ router.put("/change_gender/:id", controller.updateGender);
 router.put("/change_orientation/:id", controller.updateOrientation);
 //router.put("/update_profil", controller.updateProfil);
 
+// matcha
+
+router.post("/creatematch", matchaController.createMatch);
+router.post("/deletematch", matchaController.deleteMatch);
+router.get("/getmatchs/:uid", matchaController.getMatchs);
+router.get("/checkmatch/:uid1/:uid2", matchaController.checkMatch);
+router.post("/like", matchaController.like);
+router.get("/getliker/:uid", matchaController.getLiker);
+router.get("/getliked/:uid", matchaController.getLiked);
+
+
 // upload
 
-router.post('/upload', uploadController.uploadProfil)
+router.post('/upload', uploadController.uploadProfil);
 
 // mail 
 
