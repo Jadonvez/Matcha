@@ -8,7 +8,7 @@ export const CHECK_MATCH = "CHECK_MATCH";
 export const getMatchs = (uid) => {
     return (dispatch) => {
         return axios
-            .get(`http://localhost:5000/api/user/getmatchs/${uid}`)
+            .get(`http://localhost:5001/api/user/getmatchs/${uid}`)
             .then((res) => {
                 dispatch({ type: GET_MATCHS, payload: res.data })
             })
@@ -20,7 +20,7 @@ export const checkMatch = (uid1, uid2) => {
     return (dispatch) => {
         return axios({
             method: "get",
-            url: `http://localhost:5000/api/user/checkmatch/${uid1}/${uid2}`,
+            url: `http://localhost:5001/api/user/checkmatch/${uid1}/${uid2}`,
             data: { uid1, uid2 }
         })
             .then((res) => {
@@ -34,7 +34,7 @@ export const createMatch = (likerUid, likedUid) => {
     return (dispatch) => {
         return axios({
             method: "post",
-            url: `http://localhost:5000/api/user/creatematch`,
+            url: `http://localhost:5001/api/user/creatematch`,
             data: { likerUid, likedUid }
         })
             .then((res) => {
@@ -48,7 +48,7 @@ export const deleteMatch = (likerUid, likedUid) => {
     return (dispatch) => {
         return axios({
             method: "post",
-            url: `http://localhost:5000/api/user/deletematch`,
+            url: `http://localhost:5001/api/user/deletematch`,
             data: { likerUid, likedUid }
         })
             .then((res) => {

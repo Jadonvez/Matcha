@@ -39,7 +39,7 @@ const SignUpform = () => {
 
         axios({
             method: "post",
-            url: `http://localhost:5000/api/user/register`,
+            url: `http://localhost:5001/api/user/register`,
             withCredentials: true,
             data: {
                 name,

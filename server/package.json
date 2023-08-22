@@ -1,0 +1,31 @@
+{
+	"name": "matcha-1",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@reduxjs/toolkit": "^1.9.3",
+		"bcrypt": "^5.0.1",
+		"body-parser": "^1.19.1",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.0",
+		"express": "^4.17.2",
+		"express-fileupload": "^1.4.0",
+		"express-flash": "^0.0.2",
+		"express-session": "^1.17.2",
+		"jsonwebtoken": "^8.5.1",
+		"moment": "^2.29.1",
+		"multer": "^1.4.5-lts.1",
+		"nodemailer": "^6.7.3",
+		"nodemon": "^2.0.15",
+		"pg": "^8.11.3",
+		"react-router-dom": "^6.3.0",
+		"uuid": "^8.3.2"
+	}
+}
