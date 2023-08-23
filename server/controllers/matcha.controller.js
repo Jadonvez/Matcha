@@ -1,4 +1,4 @@
-const pool = require("../models/db_init");
+const pool = require("../db/db_init");
 var moment = require("moment");
 const queries = require("../queries");
 
