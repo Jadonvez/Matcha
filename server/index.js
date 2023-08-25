@@ -27,27 +27,27 @@ app.use(cors(corsOptions));
 //     next();
 // });
 
-app.use(cookieparser("secret"));
+//app.use(cookieparser("secret"));
 
 // La page d'acceuil
 
-app.get("/", loginrequired, (req, res) => {
+/*app.get("/", loginrequired, (req, res) => {
 	res.send("Page d'accueil bg.");
-});
+});*/
 
-app.get("/confirm_email", email.confirmEmail);
+//app.get("/confirm_email", email.confirmEmail);
 
 // routes
 
 app.use("/api/user", userRoutes);
 
 //jwt
-app.get("*", checkUser);
-app.get("/jwtid", loginrequired, (req, res) => {
+//app.get("*", checkUser);
+/*app.get("/jwtid", loginrequired, (req, res) => {
 	res.status(200).send(res.locals.user);
 	//console.log("l'id a l'index ??????????")
 	//console.log(res.locals.user);
-});
+});*/
 
 // server
 app.listen(process.env.PORT_EXPRESS, () => {

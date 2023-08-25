@@ -1,4 +1,4 @@
-const pool = require("../db/db_init");
+const pool = require("../db");
 
 module.exports = (req, res, next) => {
 	try {
