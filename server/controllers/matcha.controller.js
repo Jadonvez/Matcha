@@ -1,6 +1,6 @@
 const pool = require("../db");
 var moment = require("moment");
-const queries = require("../queries");
+const queries = require("../utils/queryBuilder");
 
 const like = (req, res) => {
 	const liker = req.body.likerUid;

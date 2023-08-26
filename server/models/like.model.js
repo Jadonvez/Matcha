@@ -1,18 +1,21 @@
+const crypto = require("crypto");
+
 class Like {
-	constructor(likerUid, likedUid) {
-		this.likerUid = likerUid;
+	constructor(userUid, likedUid) {
+		this.userUid = userUid;
 		this.likedUid = likedUid;
+		this.uid = crypto.randomUUID();
 	}
 	get attributs() {
-		return "likerUid, likedUid";
+		return "uid, user_uid, liked_uid";
 	}
 
 	get values() {
-		return `'${this.likerUid}', '${this.likedUid}'`;
+		return `'${this.uid}', '${this.userUid}', '${this.likedUid}'`;
 	}
 
 	get tableName() {
-		return "like";
+		return "likes";
 	}
 }
 

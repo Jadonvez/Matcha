@@ -3,10 +3,6 @@ class QueryBuilder {
 		return "SELECT * FROM " + tableName;
 	}
 
-	static getById(tableName, id) {
-		return `SELECT * FROM ${tableName} WHERE id = ${id}`;
-	}
-
 	static getByUid(tableName, uid) {
 		return `SELECT * FROM ${tableName} WHERE uid = '${uid}'`;
 	}
@@ -15,12 +11,23 @@ class QueryBuilder {
 		return `INSERT INTO ${entity.tableName} (${entity.attributs}) VALUES (${entity.values})`;
 	}
 
-	static delete(tablename, id) {
-		return `DELETE FROM ${tablename} WHERE id = ${id}`;
+	static delete(tablename, uid) {
+		return `DELETE FROM ${tablename} WHERE uid = '${uid}'`;
 	}
 
-	static update(entity) {
-		return entity.update;
+	static relationDelete(tablename, relationKey, relationUid) {
+		return `DELETE FROM ${tablename} WHERE ${relationKey} = '${relationUid}'`;
+	}
+
+	static patch(tableName, uid, updates) {
+		var setStr = "SET ";
+		Object.keys(updates).forEach((key) => {
+			setStr += `${key} = '${updates[key]}', `;
+		});
+		setStr = setStr.slice(0, -2);
+		return `UPDATE ${tableName} 
+		${setStr}
+		WHERE uid = '${uid}'`;
 	}
 
 	static getUsers = "SELECT * FROM users";

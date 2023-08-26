@@ -1,12 +1,12 @@
 const pool = require("../db");
-const queries = require("../queries");
+const queries = require("../utils/queryBuilder");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 var moment = require("moment");
 //const SendmailTransport = require('nodemailer/lib/sendmail-transport');
-const sendEmail = require("../mail");
+const sendEmail = require("../utils/mail");
 
 const createToken = (id) => {
 	return jwt.sign({ id }, process.env.TOKEN_SECRET, {

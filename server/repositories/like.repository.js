@@ -1,13 +1,14 @@
 const pool = require("../db");
 const QueryBuilder = require("../utils/queryBuilder");
 
-class UserRepository {
-	static tableName = "users";
+class LikeRepository {
+	static tableName = "likes";
+	static userColumn = "user_uid";
 
 	static getAll = async () => {
 		try {
-			const users = await pool.query(QueryBuilder.getAll(this.tableName));
-			return users.rows;
+			const likes = await pool.query(QueryBuilder.getAll(this.tableName));
+			return likes.rows;
 		} catch (err) {
 			throw err;
 		}
@@ -15,16 +16,16 @@ class UserRepository {
 
 	static getByUid = async (uid) => {
 		try {
-			const user = await pool.query(QueryBuilder.getByUid(this.tableName, uid));
-			return user.rows;
+			const like = await pool.query(QueryBuilder.getByUid(this.tableName, uid));
+			return like.rows;
 		} catch (err) {
 			throw err;
 		}
 	};
 
-	static create = async (user) => {
+	static create = async (like) => {
 		try {
-			const ret = await pool.query(QueryBuilder.create(user));
+			const ret = await pool.query(QueryBuilder.create(like));
 			return ret.rowCount == 1;
 		} catch (err) {
 			throw err;
@@ -40,16 +41,16 @@ class UserRepository {
 		}
 	};
 
-	static patch = async (uid, updates) => {
+	static deleteUserRelated = async (uid) => {
 		try {
 			const ret = await pool.query(
-				QueryBuilder.patch(this.tableName, uid, updates)
+				QueryBuilder.relationDelete(this.tableName, this.userColumn, uid)
 			);
-			return ret.rowCount == 1;
+			return;
 		} catch (err) {
 			throw err;
 		}
 	};
 }
 
-module.exports = UserRepository;
+module.exports = LikeRepository;

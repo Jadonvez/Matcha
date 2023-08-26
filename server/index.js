@@ -1,10 +1,10 @@
 const express = require("express");
 const cookieparser = require("cookie-parser");
-const userRoutes = require("./routes/user.routes");
+const routes = require("./controllers/routes");
 require("dotenv").config({ path: "../.env" });
 //require("./config/db");
-const email = require("./mail");
-const { checkUser, loginrequired } = require("./middleware/jwtcheck");
+const email = require("./utils/mail");
+const { checkUser, loginrequired } = require("./utils/jwtcheck");
 
 const cors = require("cors");
 const app = express();
@@ -39,11 +39,11 @@ app.use(cors(corsOptions));
 
 // routes
 
-app.use("/api/user", userRoutes);
+app.use("/api", routes);
 
 //jwt
-//app.get("*", checkUser);
-/*app.get("/jwtid", loginrequired, (req, res) => {
+/*app.get("*", checkUser);
+app.get("/jwtid", loginrequired, (req, res) => {
 	res.status(200).send(res.locals.user);
 	//console.log("l'id a l'index ??????????")
 	//console.log(res.locals.user);

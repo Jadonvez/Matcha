@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const pool = require("./db");
+const pool = require("../db");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 

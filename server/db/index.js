@@ -16,6 +16,22 @@ const pool = new Pool({
 createUserTable(pool)
 	.then(() => {
 		console.log("Users table created");
+		createLikesTable(pool)
+			.then(() => {
+				console.log("Likes Table created");
+			})
+			.catch((error) => {
+				console.error("Error creating table:", error);
+				pool.end();
+			});
+		createTokenTable(pool)
+			.then(() => {
+				console.log("Token Table created");
+			})
+			.catch((error) => {
+				console.error("Error creating table:", error);
+				pool.end();
+			});
 	})
 	.catch((error) => {
 		console.error("Error creating table:", error);
@@ -25,24 +41,6 @@ createUserTable(pool)
 createMatchTable(pool)
 	.then(() => {
 		console.log("Match Table created");
-	})
-	.catch((error) => {
-		console.error("Error creating table:", error);
-		pool.end();
-	});
-
-createLikesTable(pool)
-	.then(() => {
-		console.log("Likes Table created");
-	})
-	.catch((error) => {
-		console.error("Error creating table:", error);
-		pool.end();
-	});
-
-createTokenTable(pool)
-	.then(() => {
-		console.log("Token Table created");
 	})
 	.catch((error) => {
 		console.error("Error creating table:", error);

@@ -1,8 +1,7 @@
 function createUsersTable(pool) {
 	return pool.query(`
 	CREATE TABLE IF NOT EXISTS users (
-		id SERIAL PRIMARY KEY,
-		uid uuid UNIQUE NOT NULL,
+		uid uuid PRIMARY KEY,
 		login VARCHAR(64) UNIQUE NOT NULL,
 		mail VARCHAR(64) UNIQUE NOT NULL,
 		name VARCHAR(64) NOT NULL,
