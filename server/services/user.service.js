@@ -50,7 +50,7 @@ class UserService {
 		}
 	};
 
-	static patch = async (id, body) => {
+	static patch = async (uid, body) => {
 		try {
 			return await UserRepository.patch(uid, body);
 		} catch (error) {

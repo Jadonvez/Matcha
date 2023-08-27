@@ -14,7 +14,7 @@ class LikeController {
 		const uid = req.params.uid;
 		try {
 			const ret = await LikeService.getByUid(uid);
-			if (ret.length == 0) res.status(404).json("Like not found");
+			if (!ret) res.status(404).json("Like not found");
 			else res.status(200).json(ret);
 		} catch (err) {
 			res.status(400).json(err);

@@ -17,7 +17,7 @@ class LikeRepository {
 	static getByUid = async (uid) => {
 		try {
 			const like = await pool.query(QueryBuilder.getByUid(this.tableName, uid));
-			return like.rows;
+			return like.rows[0];
 		} catch (err) {
 			throw err;
 		}
@@ -32,6 +32,16 @@ class LikeRepository {
 		}
 	};
 
+	static checkMatch = async (like) => {
+		try {
+			const ret = await pool.query(QueryBuilder.checkMatch(like));
+			return ret.rows;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	};
+
 	static delete = async (uid) => {
 		try {
 			const ret = await pool.query(QueryBuilder.delete(this.tableName, uid));
@@ -41,10 +51,10 @@ class LikeRepository {
 		}
 	};
 
-	static deleteUserRelated = async (uid) => {
+	static deleteUserRelated = async (userUid) => {
 		try {
-			const ret = await pool.query(
-				QueryBuilder.relationDelete(this.tableName, this.userColumn, uid)
+			await pool.query(
+				QueryBuilder.relationDelete(this.tableName, this.userColumn, userUid)
 			);
 			return;
 		} catch (err) {

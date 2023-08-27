@@ -16,7 +16,7 @@ class UserRepository {
 	static getByUid = async (uid) => {
 		try {
 			const user = await pool.query(QueryBuilder.getByUid(this.tableName, uid));
-			return user.rows;
+			return user.rows[0];
 		} catch (err) {
 			throw err;
 		}

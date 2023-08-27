@@ -1,3 +1,4 @@
+const MatchService = require("./match.service");
 const LikeRepository = require("../repositories/like.repository");
 const Like = require("../models/like.model");
 
@@ -14,9 +15,16 @@ class LikeService {
 		const { userUid, likedUid } = body;
 		const like = new Like(userUid, likedUid);
 		try {
-			return await LikeRepository.create(like);
-		} catch (error) {
-			throw error;
+			const ret = await LikeRepository.create(like);
+			if (ret) {
+				const match = await LikeRepository.checkMatch(like);
+				if (match.length > 0) {
+					await MatchService.create(like);
+				}
+			}
+			return ret;
+		} catch (err) {
+			throw err;
 		}
 	};
 

@@ -7,6 +7,14 @@ class QueryBuilder {
 		return `SELECT * FROM ${tableName} WHERE uid = '${uid}'`;
 	}
 
+	static getByKey(tableName, key, value) {
+		return `SELECT * FROM ${tableName} WHERE ${key} = '${value}'`;
+	}
+
+	static getByKeyOr(tableName, key1, key2, value) {
+		return `SELECT * FROM ${tableName} WHERE ${key1} = '${value}' OR ${key2} = '${value}'`;
+	}
+
 	static create(entity) {
 		return `INSERT INTO ${entity.tableName} (${entity.attributs}) VALUES (${entity.values})`;
 	}
@@ -30,18 +38,9 @@ class QueryBuilder {
 		WHERE uid = '${uid}'`;
 	}
 
-	static getUsers = "SELECT * FROM users";
-	static getUsersById = "SELECT * FROM users WHERE id = $1";
-	static getUsersByUid = "SELECT * FROM users WHERE uid = $1";
-	static checkMailExists = "SELECT s FROM users s WHERE s.mail = $1";
-
-	static checkMailPasswordExists =
-		"SELECT * FROM users WHERE mail = $1 AND password = $2";
-
-	static addUser =
-		"INSERT INTO users (name, firstname, mail, password, dob, gender) VALUES ($1, $2, $3, $4, $5, $6)";
-	static removeUser = "DELETE FROM users WHERE id = $1";
-	static updateUser = "UPDATE users SET bio = $1 WHERE id = $2";
+	static checkMatch(like) {
+		return `SELECT * FROM ${like.tableName} WHERE user_uid = '${like.likedUid}' AND liked_uid = '${like.userUid}'`;
+	}
 }
 
 module.exports = QueryBuilder;

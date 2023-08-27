@@ -10,6 +10,7 @@ const check_mail_verif = require("../utils/check_mail_verif");
 //multer
 const multer = require("multer");
 const LikeController = require("./like.controller");
+const MatchController = require("./match.controller");
 const upload = multer();
 
 // auth
@@ -32,6 +33,12 @@ router.get("/like/", LikeController.getAll);
 router.get("/like/:uid", LikeController.getByUid);
 router.post("/like/", LikeController.create);
 router.delete("/like/:uid", LikeController.delete);
+
+// match
+router.get("/match/", MatchController.getAll);
+router.get("/match/:uid", MatchController.getByUid);
+router.get("/match/user/:uid", MatchController.getAllByUserUid);
+router.delete("/match/:uid", MatchController.delete);
 
 // matcha
 /*

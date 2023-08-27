@@ -1,15 +1,18 @@
+const crypto = require("crypto");
+
 class Match {
 	constructor(uid1, uid2) {
 		this.uid1 = uid1;
 		this.uid2 = uid2;
+		this.uid = crypto.randomUUID();
 	}
 
 	get attributs() {
-		return "uid1, uid2";
+		return "uid, uid1, uid2";
 	}
 
 	get values() {
-		return `'${this.uid1}', '${this.uid2}'`;
+		return `'${this.uid}', '${this.uid1}', '${this.uid2}'`;
 	}
 
 	get tableName() {

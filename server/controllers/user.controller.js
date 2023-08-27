@@ -4,6 +4,7 @@ const UserService = require("../services/user.service");
  * Reste à faire :
  *	- trouver une façon propre de valider les inputs
  */
+
 class UserController {
 	static getAll = async (req, res) => {
 		try {
@@ -28,7 +29,7 @@ class UserController {
 		const uid = req.params.uid;
 		try {
 			const ret = await UserService.getByUid(uid);
-			if (ret.length == 0) res.status(404).json("User not found");
+			if (!ret) res.status(404).json("User not found");
 			else res.status(200).json(ret);
 		} catch (err) {
 			res.status(400).json(err);
@@ -54,7 +55,11 @@ class UserController {
 			if (ret == false) res.status(404).json("User not found");
 			else res.status(200).json("User updated");
 		} catch (err) {
-			res.status(400).json(err);
+			if (err.constraint == "users_mail_key")
+				res.status(403).json("Mail already exists");
+			else if (err.constraint == "users_login_key")
+				res.status(403).json("Login already exists");
+			else res.status(400).json(err);
 		}
 	};
 }
