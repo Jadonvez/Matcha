@@ -1,8 +1,8 @@
 const UserRepository = require("../repositories/user.repository");
 const LikeRepository = require("../repositories/like.repository");
+const MailHandler = require("../utils/mailHandler");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
 
 class UserService {
 	static getAll = async () => {
@@ -29,7 +29,11 @@ class UserService {
 
 		try {
 			const ret = await UserRepository.create(user);
-			this.sendMail();
+			await MailHandler.sendEmail(
+				firstname,
+				mail,
+				user.mail_confirm_token
+			);
 			return ret;
 		} catch (error) {
 			throw error;
@@ -59,31 +63,6 @@ class UserService {
 		} catch (error) {
 			throw error;
 		}
-	};
-
-	static sendMail = () => {
-		var transporter = nodemailer.createTransport({
-			service: "gmail",
-			auth: {
-				user: "mail.matcha.42.lyon@gmail.com",
-				pass: "NotEZToFind69",
-			},
-		});
-
-		var mailOptions = {
-			from: "mail.matcha.42.lyon@gmail.com",
-			to: "eickmayk@hotmail.fr",
-			subject: "Sending Email using Node.js",
-			text: "That was easy!",
-		};
-
-		transporter.sendMail(mailOptions, function (error, info) {
-			if (error) {
-				console.log(error);
-			} else {
-				console.log("Email sent: " + info.response);
-			}
-		});
 	};
 }
 

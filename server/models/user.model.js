@@ -20,6 +20,7 @@ class User {
 		this.gender = gender;
 		this.orientation = orientation;
 		this.uid = crypto.randomUUID();
+		this.mail_confirm_token = crypto.randomUUID();
 	}
 
 	get tableName() {

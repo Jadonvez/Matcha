@@ -11,6 +11,7 @@ function createUsersTable(pool) {
 		gender VARCHAR(64) NOT NULL,
 		orientation VARCHAR(64) NOT NULL,
 		mail_confirm BOOLEAN NOT NULL DEFAULT FALSE,
+		mail_confirm_token uuid NOT NULL,
 		ppicture TEXT,
 		bio TEXT,
 		created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
