@@ -7,14 +7,6 @@ class Match {
 		this.uid = crypto.randomUUID();
 	}
 
-	get attributs() {
-		return "uid, uid1, uid2";
-	}
-
-	get values() {
-		return `'${this.uid}', '${this.uid1}', '${this.uid2}'`;
-	}
-
 	get tableName() {
 		return "match";
 	}

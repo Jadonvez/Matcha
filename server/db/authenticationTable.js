@@ -1,7 +1,7 @@
-function createTokenTable(pool) {
+function createAuthenticationTable(pool) {
 	return pool.query(`
-	CREATE TABLE IF NOT EXISTS token (
-		id SERIAL PRIMARY KEY,
+	CREATE TABLE IF NOT EXISTS authentication (
+		uid uuid PRIMARY KEY,
 		token VARCHAR(128) NOT NULL,
 		user_uid uuid NOT NULL,
 		created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -10,4 +10,4 @@ function createTokenTable(pool) {
 	`);
 }
 
-module.exports = createTokenTable;
+module.exports = createAuthenticationTable;

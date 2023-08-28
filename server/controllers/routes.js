@@ -52,7 +52,7 @@ router.get("/getliked/:uid", matchaController.getLiked);
 */
 // upload
 
-router.post("/upload", uploadController.uploadProfil);
+//router.post("/upload", uploadController.uploadProfil);
 
 // mail
 

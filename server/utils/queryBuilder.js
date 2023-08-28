@@ -16,7 +16,18 @@ class QueryBuilder {
 	}
 
 	static create(entity) {
-		return `INSERT INTO ${entity.tableName} (${entity.attributs}) VALUES (${entity.values})`;
+		var sql = `INSERT INTO ${entity.tableName} (`;
+		Object.keys(entity).forEach((key) => {
+			sql += `${key}, `;
+		});
+		sql = sql.slice(0, -2);
+		sql += `) VALUES (`;
+		Object.keys(entity).forEach((key) => {
+			sql += `'${entity[key]}', `;
+		});
+		sql = sql.slice(0, -2);
+		sql += `)`;
+		return sql;
 	}
 
 	static delete(tablename, uid) {
@@ -39,7 +50,7 @@ class QueryBuilder {
 	}
 
 	static checkMatch(like) {
-		return `SELECT * FROM ${like.tableName} WHERE user_uid = '${like.likedUid}' AND liked_uid = '${like.userUid}'`;
+		return `SELECT * FROM ${like.tableName} WHERE user_uid = '${like.liked_uid}' AND liked_uid = '${like.user_uid}'`;
 	}
 }
 

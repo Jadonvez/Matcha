@@ -12,8 +12,8 @@ class LikeService {
 	};
 
 	static create = async (body) => {
-		const { userUid, likedUid } = body;
-		const like = new Like(userUid, likedUid);
+		const { user_uid, liked_uid } = body;
+		const like = new Like(user_uid, liked_uid);
 		try {
 			const ret = await LikeRepository.create(like);
 			if (ret) {

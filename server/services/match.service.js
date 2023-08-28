@@ -11,7 +11,7 @@ class MatchService {
 	};
 
 	static create = async (like) => {
-		const match = new Match(like.userUid, like.likedUid);
+		const match = new Match(like.user_uid, like.liked_uid);
 		console.log(match);
 		try {
 			await MatchRepository.create(match);
@@ -29,9 +29,9 @@ class MatchService {
 		}
 	};
 
-	static getAllByUserUid = async (userUid) => {
+	static getAllByUserUid = async (user_uid) => {
 		try {
-			return await MatchRepository.getAllByUserUid(userUid);
+			return await MatchRepository.getAllByUserUid(user_uid);
 		} catch (err) {
 			throw err;
 		}

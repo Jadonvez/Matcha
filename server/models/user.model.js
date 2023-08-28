@@ -22,14 +22,6 @@ class User {
 		this.uid = crypto.randomUUID();
 	}
 
-	get attributs() {
-		return "uid, login, mail, name, firstname, password, dob, gender, orientation";
-	}
-
-	get values() {
-		return `'${this.uid}', '${this.login}', '${this.mail}', '${this.name}', '${this.firstname}', '${this.password}', '${this.dob}', '${this.gender}', '${this.orientation}'`;
-	}
-
 	get tableName() {
 		return "users";
 	}
