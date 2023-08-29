@@ -12,21 +12,28 @@ const multer = require("multer");
 const LikeController = require("./like.controller");
 const MatchController = require("./match.controller");
 const upload = multer();
+const auth = require("../utils/auth");
 
 // auth
 
 //router.post("/register", check_mail, check_login, authcontroller.register);
-router.post("/register", UserController.create);
-router.post("/login", check_mail_verif, authcontroller.signIn);
-router.get("/logout", authcontroller.logOut);
+//router.post("/register", UserController.create);
+//router.post("/login", check_mail_verif, authcontroller.signIn);
+//router.get("/logout", authcontroller.logOut);
 //router.get('/jwtid', jwtcheck.requireAuth);
+
+// Authentication
+
+//router.get("/authentication/");
 
 // user
 router.get("/user/", UserController.getAll);
 router.get("/user/:uid", UserController.getByUid);
+router.get("/user/:uid/confirm_email/:token", UserController.confirmEmail);
 router.post("/user/", UserController.create);
+router.post("/user/login", UserController.login);
 router.delete("/user/:uid", UserController.delete);
-router.patch("/user/:uid", UserController.patch);
+router.patch("/user/:uid", auth, UserController.patch);
 
 // like
 router.get("/like/", LikeController.getAll);

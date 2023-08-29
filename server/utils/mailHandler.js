@@ -39,16 +39,16 @@ class MailHandler {
 		return transporter;
 	};
 
-	static sendEmail = async (firstname, mail, confirmMailToken) => {
+	static sendEmail = async (user) => {
 		let emailTransporter = await this.#createTransporter();
 		await emailTransporter.sendMail({
 			subject: "Matcha: confirmation de votre email",
 			//text: "I am sending an email from mailHandler !",
-			html: `Bonjour ${firstname}, <br/>
-			Bienvenue dans la communautee de Matcha ! <br/>
+			html: `Bonjour ${user.firstname}, <br/>
+			Bienvenue dans la communauté de Matcha ! <br/>
 			Veuillez verifier votre email pour continuer
-				<a href="http://${process.env.DOMAIN}:${process.env.PORT_EXPRESS}/confirm_email?token=${confirmMailToken}">Cliquer ici</a>`,
-			to: mail,
+				<a href="http://${process.env.DOMAIN}:${process.env.PORT_EXPRESS}/confirm_email?token=${user.mail_confirm_token}&uid=${user.uid}">Cliquer ici</a>`,
+			to: user.mail,
 			from: process.env.GMAIL_ADDRESS,
 		});
 	};

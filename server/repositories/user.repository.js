@@ -22,6 +22,17 @@ class UserRepository {
 		}
 	};
 
+	static getByMail = async (mail) => {
+		try {
+			const user = await pool.query(
+				QueryBuilder.getByKey(this.tableName, "mail", mail)
+			);
+			return user.rows[0];
+		} catch (err) {
+			throw err;
+		}
+	};
+
 	static create = async (user) => {
 		try {
 			const ret = await pool.query(QueryBuilder.create(user));
