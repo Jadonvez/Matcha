@@ -56,6 +56,7 @@ class UserService {
 
 	static patch = async (uid, body) => {
 		try {
+			console.log(body);
 			return await UserRepository.patch(uid, body);
 		} catch (error) {
 			throw error;
@@ -79,24 +80,29 @@ class UserService {
 	static login = async (body) => {
 		try {
 			const user = await UserRepository.getByMail(body.mail);
-			console.log(user);
 			if (!bcrypt.compareSync(body.password, user.password)) {
 				return undefined;
 			}
-			console.log("c'est bon");
-			const accessToken = this.#createToken(user.uid);
-			console.log(accessToken);
-			return accessToken;
+			const accessToken = jwt.sign(
+				{
+					UserInfo: {
+						login: user.login,
+						uid: user.uid,
+					},
+				},
+				process.env.TOKEN_SECRET,
+				{ expiresIn: "600s" }
+			);
+			const refreshToken = jwt.sign(
+				{ login: user.login },
+				process.env.TOKEN_SECRET,
+				{ expiresIn: "1d" }
+			);
+			await UserRepository.patch(user.uid, { refresh_token: refreshToken });
+			return { accessToken: accessToken, refreshToken: refreshToken };
 		} catch (err) {
 			throw err;
 		}
-	};
-
-	static #createToken = (uid) => {
-		console.log(process.env.TOKEN_SECRET);
-		return jwt.sign({ uid }, process.env.TOKEN_SECRET, {
-			expiresIn: "120s",
-		});
 	};
 }
 

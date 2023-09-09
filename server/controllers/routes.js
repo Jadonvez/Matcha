@@ -1,18 +1,11 @@
 const router = require("express").Router();
 const UserController = require("./user.controller");
-const authcontroller = require("./auth.controller");
-const uploadController = require("./upload.controller");
-const matchaController = require("./matcha.controller");
-//const email = require("../mail");
-const check_mail = require("../utils/check_mail");
-const check_login = require("../utils/check_login");
-const check_mail_verif = require("../utils/check_mail_verif");
 //multer
 const multer = require("multer");
 const LikeController = require("./like.controller");
 const MatchController = require("./match.controller");
 const upload = multer();
-const auth = require("../utils/auth");
+const auth = require("../middlewares/auth");
 
 // auth
 

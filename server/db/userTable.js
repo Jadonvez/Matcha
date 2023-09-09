@@ -14,6 +14,7 @@ function createUsersTable(pool) {
 		mail_confirm_token uuid NOT NULL,
 		ppicture TEXT,
 		bio TEXT,
+		refresh_token TEXT,
 		created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 		)
 	`);

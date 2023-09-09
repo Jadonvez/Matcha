@@ -1,5 +1,5 @@
 const UserService = require("../services/user.service");
-const auth = require("../utils/auth");
+const auth = require("../middlewares/auth");
 
 /***
  * Reste à faire :
@@ -9,6 +9,7 @@ const auth = require("../utils/auth");
 class UserController {
 	static getAll = async (req, res) => {
 		try {
+			console.log("hello");
 			const ret = await UserService.getAll();
 			res.status(200).json(ret);
 		} catch (err) {
@@ -56,6 +57,8 @@ class UserController {
 		try {
 			const uid = req.params.uid;
 			const body = req.body;
+			const tokenUid = req.user.uid;
+			if (uid != tokenUid) res.status(403).json("Forbidden");
 			const ret = await UserService.patch(uid, body);
 			if (ret == false) res.status(404).json("User not found");
 			else res.status(200).json("User updated");
@@ -86,7 +89,13 @@ class UserController {
 		try {
 			const ret = await UserService.login(body);
 			if (ret == undefined) res.status(403).json("Wrong mail or password");
-			res.status(200).json(ret);
+			res.cookie("jwt", ret.refreshToken, {
+				httpOnly: true,
+				secure: true,
+				sameSite: "None",
+				maxAge: 24 * 60 * 60 * 1000,
+			});
+			res.status(200).json(ret.accessToken);
 		} catch (err) {
 			res.status(400).json(err);
 		}

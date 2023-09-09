@@ -10,6 +10,7 @@ const Home = () => {
 
 	async function getUsers() {
 		try {
+			console.log("oui");
 			const response = await axios.get("http://localhost:5001/api/user/");
 			return response.data;
 		} catch (error) {

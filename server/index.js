@@ -3,8 +3,8 @@ const cookieparser = require("cookie-parser");
 const routes = require("./controllers/routes");
 require("dotenv").config({ path: "../.env" });
 //require("./config/db");
-const email = require("./utils/mail");
-const { checkUser, loginrequired } = require("./utils/jwtcheck");
+const email = require("./middlewares/mail");
+const { checkUser, loginrequired } = require("./middlewares/jwtcheck");
 
 const cors = require("cors");
 const app = express();
@@ -27,7 +27,7 @@ app.use(cors(corsOptions));
 //     next();
 // });
 
-//app.use(cookieparser("secret"));
+//app.use(cookieparser);
 
 // La page d'acceuil
 

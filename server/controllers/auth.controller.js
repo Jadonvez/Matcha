@@ -180,9 +180,19 @@ const logOut = (req, res) => {
 	res.cookie("access-token", "", { maxAge: 1 });
 	res.redirect("/");
 };
-
+/*
 module.exports = {
 	signIn,
 	logOut,
 	register,
 };
+*/
+
+class AuthController {
+	static handleRefreshToken = async (req, res) => {
+		const cookies = req.cookies;
+		console.log(cookies);
+	};
+}
+
+module.exports = AuthController;

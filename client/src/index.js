@@ -27,32 +27,33 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
 //import Navbar from "./components/navbar_unlog";
 //import reportWebVitals from "./reportWebVitals";
 
 //    devtools
-import { composeWithDevTools } from 'redux-devtools-extension';
-import logger from 'redux-logger';
+import { composeWithDevTools } from "redux-devtools-extension";
+import logger from "redux-logger";
 
 const store = createStore(
-  rootReducer, composeWithDevTools(applyMiddleware(thunk, logger))
-)
+	rootReducer,
+	composeWithDevTools(applyMiddleware(thunk, logger))
+);
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 root.render(
-    <Provider store={store}>
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>
-    </Provider>,
+	<Provider store={store}>
+		<React.StrictMode>
+			<Router>
+				<App />
+			</Router>
+		</React.StrictMode>
+	</Provider>
 );
 
 //reportWebVitals();
