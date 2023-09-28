@@ -43,6 +43,14 @@ class LikeService {
 			throw err;
 		}
 	};
+
+	static deleteAllByUser = async (userUid) => {
+		try {
+			await LikeRepository.deleteAllByUser(userUid);
+		} catch (err) {
+			throw err;
+		}
+	};
 }
 
 module.exports = LikeService;

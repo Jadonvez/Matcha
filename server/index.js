@@ -1,10 +1,6 @@
 const express = require("express");
-const cookieparser = require("cookie-parser");
-const routes = require("./controllers/routes");
+const routes = require("./api/routes");
 require("dotenv").config({ path: "../.env" });
-//require("./config/db");
-const email = require("./middlewares/mail");
-const { checkUser, loginrequired } = require("./middlewares/jwtcheck");
 
 const cors = require("cors");
 const app = express();
@@ -14,8 +10,8 @@ app.use(express.json());
 const corsOptions = {
 	origin: `http://localhost:${process.env.PORT_REACT}`,
 	credentials: true,
-	allowedHeaders: ["sessionId", "Content-Type"],
-	exposedHeaders: ["sessionId"],
+	//allowedHeaders: ["bearer", "Content-Type"],
+	//exposedHeaders: ["bearer"],
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 	preflightContinue: false,
 };

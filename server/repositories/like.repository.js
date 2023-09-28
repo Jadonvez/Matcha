@@ -51,7 +51,7 @@ class LikeRepository {
 		}
 	};
 
-	static deleteUserRelated = async (userUid) => {
+	static deleteAllByUser = async (userUid) => {
 		try {
 			await pool.query(
 				QueryBuilder.relationDelete(this.tableName, this.userColumn, userUid)

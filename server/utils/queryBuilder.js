@@ -30,12 +30,35 @@ class QueryBuilder {
 		return sql;
 	}
 
+	static createMany(entities) {
+		var sql = `INSERT INTO ${entities[0].tableName} (`;
+		Object.keys(entities[0]).forEach((key) => {
+			sql += `${key}, `;
+		});
+		sql = sql.slice(0, -2);
+		sql += `) VALUES `;
+		entities.forEach((entity) => {
+			sql += `(`;
+			Object.keys(entity).forEach((key) => {
+				sql += `'${entity[key]}', `;
+			});
+			sql = sql.slice(0, -2);
+			sql += `),`;
+		});
+		sql = sql.slice(0, -1);
+		return sql;
+	}
+
 	static delete(tablename, uid) {
 		return `DELETE FROM ${tablename} WHERE uid = '${uid}'`;
 	}
 
 	static relationDelete(tablename, relationKey, relationUid) {
 		return `DELETE FROM ${tablename} WHERE ${relationKey} = '${relationUid}'`;
+	}
+
+	static relationDeleteAnd(tablename, relationKey, relationUid, key, value) {
+		return `DELETE FROM ${tablename} WHERE ${relationKey} = '${relationUid}' AND ${key} = ${value}`;
 	}
 
 	static patch(tableName, uid, updates) {

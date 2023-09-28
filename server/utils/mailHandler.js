@@ -47,7 +47,7 @@ class MailHandler {
 			html: `Bonjour ${user.firstname}, <br/>
 			Bienvenue dans la communauté de Matcha ! <br/>
 			Veuillez verifier votre email pour continuer
-				<a href="http://${process.env.DOMAIN}:${process.env.PORT_EXPRESS}/confirm_email?token=${user.mail_confirm_token}&uid=${user.uid}">Cliquer ici</a>`,
+				<a href="http://${process.env.DOMAIN}:${process.env.PORT_REACT}/confirm_email?token=${user.mail_confirm_token}&uid=${user.uid}">Cliquer ici</a>`,
 			to: user.mail,
 			from: process.env.GMAIL_ADDRESS,
 		});

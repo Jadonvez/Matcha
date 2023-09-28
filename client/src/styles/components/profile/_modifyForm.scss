@@ -1,0 +1,39 @@
+.modify-form-body {
+	margin: 2vh;
+	.photos {
+		.photo-cards {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+			justify-content: space-between;
+		}
+	}
+
+	.modify-form-informations {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10vh;
+		//justify-content: space-between;
+		.biography {
+			width: 45%;
+			textarea {
+				min-width: 300px;
+				min-height: 100px;
+				width: 90%;
+				resize: none;
+				border-radius: 10px;
+			}
+		}
+
+		.interests,
+		.location {
+			width: 45%;
+			min-width: 300px;
+			min-height: 100px;
+		}
+	}
+
+	.register-btn {
+		width: 100%;
+	}
+}

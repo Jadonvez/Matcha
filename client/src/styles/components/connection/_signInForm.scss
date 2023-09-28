@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.sign-in-container {
+	form {
+		font-family: "poppins";
+		background-color: $tertiary;
+		border-radius: 0px 0px 4px 4px;
+		display: flex;
+		flex-direction: column;
+
+		input {
+			margin: 5px;
+		}
+
+		#submit {
+			background-color: $secondary;
+			color: white;
+		}
+
+		#submit-valid {
+			background-color: $primary;
+			color: white;
+		}
+	}
+}

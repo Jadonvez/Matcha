@@ -1,59 +1,45 @@
-import React, { useState } from "react";
-import SignInForm from "../components/SignInform";
-import SignUpForm from "../components/SignUpform";
-import Navbar from "../components/navbar_unlog";
-import "../styles/pages/_connection.scss";
+import Navbar from "../components/Navbar";
+import birds from "../assets/images/birds.svg";
+import { useState } from "react";
+import SignUpForm from "../components/connection/SignUpForm";
+import SignInform from "../components/connection/SignInForm";
 
 const Connection = () => {
 	const [signUpModal, setSignUpModal] = useState(true);
-	const [signInModal, setSignInModal] = useState(false);
 
 	const handleModals = (e) => {
 		if (e.target.id === "register") {
-			setSignInModal(false);
 			setSignUpModal(true);
-		} else if (e.target.id === "loginn") {
+		} else if (e.target.id === "login") {
 			setSignUpModal(false);
-			setSignInModal(true);
 		}
 	};
 	return (
-		<div className="body-connection">
-			<div>
-				<Navbar />
-				<div className="connection-form">
-					<div className="form-container-connection">
-						<div className="img-birds">
-							<img
-								src="./img/birds-logo.svg"
-								height="35"
-								alt="img-birds-logo"
-							/>
-						</div>
-						<ul className="ul-connection">
-							<li
-								className={
-									signUpModal ? "li-connection-activ " : "li-connection"
-								}
-								onClick={handleModals}
-								id="register"
-							>
-								S'inscrire
-							</li>
-							<li
-								className={
-									signInModal ? "li-connection-activ " : "li-connection"
-								}
-								onClick={handleModals}
-								id="loginn"
-							>
-								Se connecter
-							</li>
-						</ul>
-						{signUpModal && <SignUpForm />}
-						{signInModal && <SignInForm />}
-					</div>
-				</div>
+		<div className="connection">
+			<Navbar />
+			<div className="form-container">
+				<img
+					src={birds}
+					alt="Oisillons transis d'amour profond"
+					className="birds-img"
+				/>
+				<ul className="connection-type">
+					<li
+						className={signUpModal ? "li-connection-active" : "li-connection"}
+						onClick={handleModals}
+						id="register"
+					>
+						S'inscrire
+					</li>
+					<li
+						className={signUpModal ? "li-connection" : "li-connection-active"}
+						onClick={handleModals}
+						id="login"
+					>
+						Se connecter
+					</li>
+				</ul>
+				{signUpModal ? <SignUpForm /> : <SignInform />}
 			</div>
 		</div>
 	);

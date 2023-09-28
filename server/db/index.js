@@ -3,6 +3,7 @@ require("dotenv").config({ path: "../../.env" });
 const createUserTable = require("./userTable");
 const createMatchTable = require("./matchTable");
 const createLikesTable = require("./likesTable");
+const createPictureTable = require("./pictureTable");
 
 const pool = new Pool({
 	user: process.env.DB_USERNAME,
@@ -18,6 +19,14 @@ createUserTable(pool)
 		createLikesTable(pool)
 			.then(() => {
 				console.log("Likes Table created");
+			})
+			.catch((error) => {
+				console.error("Error creating table:", error);
+				pool.end();
+			});
+		createPictureTable(pool)
+			.then(() => {
+				console.log("Picture Table created");
 			})
 			.catch((error) => {
 				console.error("Error creating table:", error);
