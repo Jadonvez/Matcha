@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  react:
+    build: ./client
+    container_name: react
+    depends_on:
+      - postgres
+      - express
+    environment:
+      - PORT=${PORT_REACT}
+    networks:
+      - network
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - "./client:/app"
+  express:
+    build: ./server
+    container_name: express
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    networks:
+      - network
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+    volumes:
+      - "./server:/app"
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    networks:
+      - network
+    restart: unless-stopped
+    volumes:
+      - "matcha-db:/var/lib/postgresql/data"
+networks:
+  network:
+    name: network
+    driver: bridge
+volumes:
+  matcha-db:
+    name: matcha-db

@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.sign-up-container {
+	form {
+		font-family: "poppins";
+		background-color: $tertiary;
+		border-radius: 0px 0px 4px 4px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			"i1 i1"
+			"i2 i2"
+			"i3 i3"
+			"i4 i4"
+			"i5 i5"
+			"i6 i6"
+			"i7 i8"
+			"i9 i9";
+
+		input {
+			margin: 5px;
+		}
+
+		select {
+			margin: 5px;
+		}
+
+		#name {
+			grid-area: i1;
+		}
+
+		#firstname {
+			grid-area: i2;
+		}
+
+		#login {
+			grid-area: i3;
+		}
+
+		#email {
+			grid-area: i4;
+		}
+
+		#password {
+			grid-area: i5;
+		}
+
+		#dob {
+			grid-area: i6;
+		}
+
+		#submit {
+			grid-area: i9;
+			background-color: $secondary;
+			color: white;
+		}
+
+		#submit-valid {
+			grid-area: i9;
+			background-color: $primary;
+			color: white;
+		}
+	}
+}
