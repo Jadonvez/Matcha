@@ -4,6 +4,8 @@ const createUserTable = require("./userTable");
 const createMatchTable = require("./matchTable");
 const createLikesTable = require("./likesTable");
 const createPictureTable = require("./pictureTable");
+const { createTagTable, populateTagTable } = require("./tagTable");
+const createUserTagTable = require("./userTagTable");
 
 const pool = new Pool({
 	user: process.env.DB_USERNAME,
@@ -15,22 +17,29 @@ const pool = new Pool({
 
 createUserTable(pool)
 	.then(() => {
-		console.log("Users table created");
 		createLikesTable(pool)
-			.then(() => {
-				console.log("Likes Table created");
-			})
+			.then()
 			.catch((error) => {
 				console.error("Error creating table:", error);
 				pool.end();
 			});
 		createPictureTable(pool)
-			.then(() => {
-				console.log("Picture Table created");
-			})
+			.then()
 			.catch((error) => {
 				console.error("Error creating table:", error);
 				pool.end();
+			});
+		createTagTable(pool)
+			.then(() => {
+				populateTagTable(pool);
+				createUserTagTable(pool)
+					.then()
+					.catch((error) => {
+						console.error("Error while creating User Tag relationship:", error);
+					});
+			})
+			.catch((error) => {
+				console.error("error creating table:", error);
 			});
 	})
 	.catch((error) => {
@@ -39,9 +48,7 @@ createUserTable(pool)
 	});
 
 createMatchTable(pool)
-	.then(() => {
-		console.log("Match Table created");
-	})
+	.then()
 	.catch((error) => {
 		console.error("Error creating table:", error);
 		pool.end();

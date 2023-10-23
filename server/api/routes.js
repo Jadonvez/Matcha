@@ -6,18 +6,7 @@ const MatchController = require("./controllers/match.controller");
 const authentication = require("./middlewares/authentication");
 const upload = require("./middlewares/upload");
 const PictureController = require("./controllers/picture.controller");
-
-// auth
-
-//router.post("/register", check_mail, check_login, authcontroller.register);
-//router.post("/register", UserController.create);
-//router.post("/login", check_mail_verif, authcontroller.signIn);
-//router.get("/logout", authcontroller.logOut);
-//router.get('/jwtid', jwtcheck.requireAuth);
-
-// Authentication
-
-//router.get("/authentication/");
+const TagController = require("./controllers/tag.controller");
 
 // user
 router.get("/user/all", authentication, UserController.getAll);
@@ -30,6 +19,13 @@ router.post("/user/profile", authentication, upload, UserController.profile);
 router.delete("/user/", authentication, UserController.delete);
 router.patch("/user", authentication, UserController.patch);
 
+// pictures
+router.get("/picture/:uid", authentication, PictureController.getByUser);
+
+// tags
+router.get("/tag/", TagController.getAll);
+
+/*
 // like
 router.get("/like/", LikeController.getAll);
 router.get("/like/:uid", LikeController.getByUid);
@@ -41,9 +37,7 @@ router.get("/match/", MatchController.getAll);
 router.get("/match/:uid", MatchController.getByUid);
 router.get("/match/user/:uid", MatchController.getAllByUserUid);
 router.delete("/match/:uid", MatchController.delete);
-
-// pictures
-router.get("/picture/:uid", authentication, PictureController.getByUser);
+*/
 
 // matcha
 /*

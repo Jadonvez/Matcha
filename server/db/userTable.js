@@ -12,7 +12,6 @@ function createUsersTable(pool) {
 		orientation VARCHAR(64) NOT NULL,
 		mail_confirm BOOLEAN NOT NULL DEFAULT FALSE,
 		mail_confirm_token uuid NOT NULL,
-		ppicture TEXT,
 		bio TEXT,
 		location VARCHAR(128),
 		refresh_token TEXT,

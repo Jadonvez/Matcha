@@ -6,6 +6,8 @@ const User = require("../models/user.model");
 const UserDto = require("../dto/user.dto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const TagService = require("./tag.service");
+const TagDto = require("../dto/tag.dto");
 
 class UserService {
 	static getAll = async () => {
@@ -42,8 +44,14 @@ class UserService {
 	static getByUid = async (uid) => {
 		try {
 			const user = await UserRepository.getByUid(uid);
-			const dto = new UserDto(user);
-			return dto;
+			const tags = await TagService.getByUserUid(uid);
+			const tagsDto = [];
+			for (const tag of tags) {
+				const tagDto = new TagDto(tag);
+				tagsDto.push(tagDto);
+			}
+			const userDto = new UserDto(user, tagsDto);
+			return userDto;
 		} catch (err) {
 			throw err;
 		}
@@ -132,6 +140,7 @@ class UserService {
 				location: body.location,
 			});
 			await PictureService.updateByUser(files, uid, body.deleted);
+			await TagService.addManyToUser(body.tag, uid);
 		} catch (err) {
 			throw err;
 		}

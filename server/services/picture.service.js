@@ -12,7 +12,6 @@ class PictureService {
 				const dto = new PictureDto(picture);
 				dtos.push(dto);
 			});
-			console.log(dtos);
 			return dtos;
 		} catch (err) {
 			throw err;

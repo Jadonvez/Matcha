@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import PhotoUploaderCard from "./PhotoUploaderCard";
+import TagsPopUp from "./TagsPopUp";
 import { api } from "../../app/apis/configs/axiosConfigs";
 import { useDispatch, useSelector } from "react-redux";
 import PictureApi from "../../app/apis/PictureApi";
-import { updateUserBio, updateUserLocation } from "../../app/slices/userSlice";
+import {
+	updateUserBio,
+	updateUserLocation,
+	updateUserTags,
+} from "../../app/slices/userSlice";
 
 const ModifyForm = () => {
 	const [images, setImages] = useState([null, null, null, null, null]);
@@ -16,9 +21,10 @@ const ModifyForm = () => {
 	]);
 	const [deletedImages, setDeletedImages] = useState([]);
 	const [biography, setBiography] = useState("");
-	const [passions, setPassions] = useState([]);
+	const [tags, setTags] = useState([]);
 	const [location, setLocation] = useState("");
 	const [checked, setChecked] = useState(false);
+	const [showPopUp, setShowPopUp] = useState(false);
 	const user = useSelector((state) => state.userReducer);
 	const dispatch = useDispatch();
 
@@ -52,6 +58,18 @@ const ModifyForm = () => {
 		reader.readAsDataURL(file);
 	};
 
+	const togglePopUp = () => {
+		setShowPopUp(!showPopUp);
+	};
+
+	const updateTags = (tagsToUpdate) => {
+		const array = [];
+		for (const t of tagsToUpdate) {
+			array.push(t);
+		}
+		setTags(array);
+	};
+
 	useEffect(() => {
 		PictureApi.getAllByUserId(user.uid).then((pictures) => {
 			const updatedDisplay = [...displayedImages];
@@ -63,8 +81,8 @@ const ModifyForm = () => {
 			setBiography(user.bio);
 			setLocation(user.location);
 			setDisplayedImages(updatedDisplay);
+			setTags(user.tags);
 		});
-		console.log(user);
 	}, []);
 
 	const handleSubmit = async (e) => {
@@ -78,8 +96,8 @@ const ModifyForm = () => {
 		formData.append("location", location);
 		formData.append("deleted", deletedImages);
 
-		passions.forEach((tag, index) => {
-			formData.append(`tag[${index}]`, tag);
+		tags.forEach((tag, index) => {
+			formData.append(`tag[${index}]`, tag.uid);
 		});
 
 		const res = await api.post("/user/profile", formData, {
@@ -90,6 +108,7 @@ const ModifyForm = () => {
 
 		dispatch(updateUserLocation(location));
 		dispatch(updateUserBio(biography));
+		dispatch(updateUserTags(tags));
 	};
 
 	const handleCheckbox = () => {
@@ -133,7 +152,25 @@ const ModifyForm = () => {
 					</div>
 					<div className="interests">
 						<h2>Passions</h2>
-						<p>Build tag system</p>
+						<div className="tags">
+							{tags.map((tag, index) => (
+								<div className="tag" key={index}>
+									{tag.name}
+								</div>
+							))}
+						</div>
+						<button type="button" onClick={togglePopUp}>
+							Choisir centres d'intérêts
+						</button>
+						{showPopUp ? (
+							<TagsPopUp
+								onClose={togglePopUp}
+								onValidate={updateTags}
+								currentTags={tags}
+							/>
+						) : (
+							<div></div>
+						)}
 					</div>
 					<div className="location">
 						<h2>Localisation</h2>

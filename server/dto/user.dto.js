@@ -1,5 +1,5 @@
 class UserDto {
-	constructor(user) {
+	constructor(user, tags) {
 		this.uid = user.uid;
 		this.login = user.login;
 		this.mail = user.mail;
@@ -10,6 +10,7 @@ class UserDto {
 		this.orientation = user.orientation;
 		this.bio = user.bio;
 		this.location = user.location;
+		this.tags = tags;
 	}
 }
 

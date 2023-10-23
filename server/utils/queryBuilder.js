@@ -8,11 +8,15 @@ class QueryBuilder {
 	}
 
 	static getByKey(tableName, key, value) {
-		return `SELECT * FROM ${tableName} WHERE ${key} = '${value}'`;
+		return `SELECT * FROM ${tableName} WHERE ${key} = '${this.escapeString(
+			value
+		)}'`;
 	}
 
 	static getByKeyOr(tableName, key1, key2, value) {
-		return `SELECT * FROM ${tableName} WHERE ${key1} = '${value}' OR ${key2} = '${value}'`;
+		return `SELECT * FROM ${tableName} WHERE ${key1} = '${this.escapeString(
+			value
+		)}' OR ${key2} = '${this.escapeString(value)}'`;
 	}
 
 	static create(entity) {
@@ -58,13 +62,15 @@ class QueryBuilder {
 	}
 
 	static relationDeleteAnd(tablename, relationKey, relationUid, key, value) {
-		return `DELETE FROM ${tablename} WHERE ${relationKey} = '${relationUid}' AND ${key} = ${value}`;
+		return `DELETE FROM ${tablename} WHERE ${relationKey} = '${relationUid}' AND ${key} = ${this.escapeString(
+			value
+		)}`;
 	}
 
 	static patch(tableName, uid, updates) {
 		var setStr = "SET ";
 		Object.keys(updates).forEach((key) => {
-			setStr += `${key} = '${updates[key]}', `;
+			setStr += `${key} = '${this.escapeString(updates[key])}', `;
 		});
 		setStr = setStr.slice(0, -2);
 		return `UPDATE ${tableName} 
@@ -74,6 +80,16 @@ class QueryBuilder {
 
 	static checkMatch(like) {
 		return `SELECT * FROM ${like.tableName} WHERE user_uid = '${like.liked_uid}' AND liked_uid = '${like.user_uid}'`;
+	}
+
+	static getManyToMany(tableName, linkTableName, relatedTableName, uid) {
+		return `SELECT * FROM ${tableName} 
+		JOIN ${linkTableName} ON ${tableName}.uid = ${linkTableName}.${tableName}_uid
+		WHERE ${linkTableName}.${relatedTableName}_uid = '${uid}'`;
+	}
+
+	static escapeString(str) {
+		return str.replace(/'/g, "''");
 	}
 }
 
