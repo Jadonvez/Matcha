@@ -6,13 +6,9 @@ import { useSelector } from "react-redux";
 
 const Preview = () => {
 	const [images, setImages] = useState([]);
-	const [biography, setBiography] = useState("");
-	const [tags, setTags] = useState([]);
-	const [location, setLocation] = useState("");
-	const [carouselData, setCarouselData] = [];
 	const user = useSelector((state) => state.userReducer);
 	const [loading, setLoading] = useState(true);
-	const [legend, setLegend] = useState("");
+	const [age, setAge] = useState(0);
 
 	useEffect(() => {
 		PictureApi.getAllByUserId(user.uid).then((pictures) => {
@@ -22,13 +18,9 @@ const Preview = () => {
 					picture.index
 				] = `data:${picture.mimetype};base64,${picture.base64data}`;
 			});
-			setBiography(user.bio);
-			setLocation(user.location);
 			setImages(updatedDisplay);
-			setTags(user.tags);
+			setAge(getUserAge());
 			setLoading(false);
-			console.log(user);
-			getUserAge();
 		});
 	}, []);
 
@@ -49,28 +41,30 @@ const Preview = () => {
 	};
 
 	return (
-		<div>
-			{loading ? (
-				<div></div>
-			) : (
-				<Carousel>
-					{images.map((image, index) => {
-						return (
-							<div key={index}>
-								<img src={image} />
-								<p className="legend">
-									{user.login} {getUserAge()} {user.location} <br />
-									{user.tags.map((tag, index) => {
-										return " | " + tag.name + " | ";
-									})}
-									<br />
-									{biography}
-								</p>
-							</div>
-						);
-					})}
-				</Carousel>
-			)}
+		<div className="preview">
+			<div className="carousel-container">
+				{loading ? (
+					<div></div>
+				) : (
+					<Carousel>
+						{images.map((image, index) => {
+							return (
+								<div key={index}>
+									<img className="carousel-img" src={image} />
+									<p className="legend">
+										{user.login} {age} {user.location} <br />
+										{user.tags.map((tag, index) => {
+											return " | " + tag.name + " | ";
+										})}
+										<br />
+										{user.bio}
+									</p>
+								</div>
+							);
+						})}
+					</Carousel>
+				)}
+			</div>
 		</div>
 	);
 };

@@ -39,7 +39,7 @@ const TagsPopUp = ({ onClose, onValidate, currentTags }) => {
 		<div className="tags-pop-up">
 			<div className="tags-pop-up-inner">
 				<button type="button" className="close-btn" onClick={onClose}>
-					X
+					x
 				</button>
 				<h2>Choisis tes passions</h2>
 				<h3>{selectedTags.length} / 5 sélectionnées</h3>

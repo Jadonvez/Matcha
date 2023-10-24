@@ -1,0 +1,10 @@
+.preview {
+	display: flex;
+	justify-content: center;
+	.carousel-container {
+		width: 60vh;
+		.carousel-img {
+			object-fit: fill;
+		}
+	}
+}
